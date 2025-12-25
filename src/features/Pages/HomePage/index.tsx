@@ -1,9 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "@/features/Pages/pageSlice";
+import {
+  increment,
+  decrement,
+  reset,
+  incrementBy,
+  selectCount,
+} from "@/features/Pages/pageSlice";
 
 const HomePage = () => {
-  const count = useSelector((state: any) => state.page.count);
   const disptach = useDispatch();
+  const count = useSelector(selectCount);
+  console.log(count);
 
   return (
     <section>
@@ -13,6 +20,12 @@ const HomePage = () => {
       </button>
       <button type="button" onClick={() => disptach(decrement())}>
         -
+      </button>
+      <button type="button" onClick={() => disptach(reset())}>
+        Reset
+      </button>
+      <button type="button" onClick={() => disptach(incrementBy(5))}>
+        + 5
       </button>
     </section>
   );

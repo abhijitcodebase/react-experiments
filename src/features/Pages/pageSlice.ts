@@ -1,22 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const intialState = {
-  count: 0,
+interface InitialState {
+  count: number;
+}
+
+interface Action {
+  payload: any;
+  type: string;
+}
+
+const intialState: InitialState = {
+  count: 1,
 };
 
-export const pageSlice = createSlice({
+const pageSlice = createSlice({
   name: "pages",
   initialState: intialState,
   reducers: {
-    increment: (state) => {
+    increment: (state: InitialState) => {
       state.count += 1;
     },
-    decrement: (state) => {
+    decrement: (state: InitialState) => {
       state.count -= 1;
+    },
+    reset: (state: InitialState) => {
+      state.count = 0;
+    },
+    incrementBy: (state: InitialState, action: Action) => {
+      state.count += action.payload;
     },
   },
 });
 
-export const { increment, decrement } = pageSlice.actions;
+export const selectCount = (state: any) => state.page.count;
+export const { increment, decrement, reset, incrementBy } = pageSlice.actions;
 
 export default pageSlice.reducer;
